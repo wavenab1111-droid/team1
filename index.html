@@ -70,7 +70,6 @@
       width: 100%;
       border-radius: 12px;
       margin-bottom: 15px;
-      display: block;
     }
 
     .score {
@@ -251,12 +250,25 @@
         const scoredCourses = courses.map(course => {
           let score = 0;
 
-          if(course.difficulty === level) score++;
-          if(course.distance === distance) score++;
-          if(course.mood === mood) score++;
-          if(course.purpose === purpose) score++;
-          if(course.safety === safety) score++;
-          if(course.weather === weather) score++;
+          if (course.difficulty === level) score += 25;
+          if (course.distance === distance) score += 20;
+          if (course.purpose === purpose) score += 20;
+
+          if (course.mood === mood) {
+            score += 15;
+          } else if (
+            (course.mood === "바다" && mood === "관광") ||
+            (course.mood === "관광" && mood === "바다") ||
+            (course.mood === "감성" && mood === "힐링") ||
+            (course.mood === "힐링" && mood === "감성") ||
+            (course.mood === "자연" && mood === "힐링") ||
+            (course.mood === "힐링" && mood === "자연")
+          ) {
+            score += 8;
+          }
+
+          if (course.safety === safety) score += 10;
+          if (course.weather === weather) score += 10;
 
           return {
             ...course,
@@ -271,20 +283,14 @@
         let resultHTML = "";
 
         topCourses.forEach(course => {
-          if(course.score === 0) return;
+          if (course.score < 30) return;
 
           resultHTML += `
             <div class="course-card">
               <img src="${course.image}" class="course-img" alt="${course.name}">
-
               <h2>${course.name}</h2>
-
-              <p class="score">
-                ${(course.score / 6 * 100).toFixed(0)}% 일치
-              </p>
-
+              <p class="score">${course.score}% 적합</p>
               <p>${course.desc}</p>
-
               <p class="tags">
                 ${course.mood} · ${course.distance} · ${course.safety}
               </p>
