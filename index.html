@@ -58,31 +58,38 @@
     }
 
     .course-card {
-  background: #eef7f1;
-  padding: 22px;
-  margin-top: 20px;
-  border-radius: 12px;
-  border-left: 6px solid #2ecc71;
-  line-height: 1.6;
-}
+      background: #eef7f1;
+      padding: 22px;
+      margin-top: 20px;
+      border-radius: 12px;
+      border-left: 6px solid #2ecc71;
+      line-height: 1.6;
+    }
+
+    .course-img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      display: block;
+    }
 
     .score {
-  font-weight: bold;
-  color: #27ae60;
-  font-size: 18px;
-  margin-top: 8px;
-}
+      font-weight: bold;
+      color: #27ae60;
+      font-size: 18px;
+      margin-top: 8px;
+    }
 
-h2 {
-  margin-bottom: 10px;
-  color: #2c3e50;
-}
+    h2 {
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
 
-.tags {
-  margin-top: 10px;
-  color: #666;
-  font-size: 14px;
-}
+    .tags {
+      margin-top: 10px;
+      color: #666;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -93,163 +100,201 @@ h2 {
       사용자의 난이도와 선호 환경을 기반으로 제주 러닝코스를 추천합니다.
     </p>
 
+    <label>난이도 선택</label>
+    <select id="level">
+      <option>초급</option>
+      <option>초급~중급</option>
+      <option>중급</option>
+      <option>중상급 이상</option>
     </select>
-<label>난이도 선택</label>
-<select id="level">
-  <option>초급</option>
-  <option>초급~중급</option>
-  <option>중급</option>
-  <option>중상급 이상</option>
-</select>
 
-<label>거리 선택</label>
-<select id="distance">
-  <option>2km 이하</option>
-  <option>3~5km</option>
-  <option>6km 내외</option>
-  <option>10km 이상</option>
-</select>
+    <label>거리 선택</label>
+    <select id="distance">
+      <option>2km 이하</option>
+      <option>3~5km</option>
+      <option>6km 내외</option>
+      <option>10km 이상</option>
+    </select>
 
-<label>분위기 선택</label>
-<select id="mood">
-  <option>바다</option>
-  <option>감성</option>
-  <option>자연</option>
-  <option>관광</option>
-  <option>일상</option>
-  <option>힐링</option>
-</select>
+    <label>분위기 선택</label>
+    <select id="mood">
+      <option>바다</option>
+      <option>감성</option>
+      <option>자연</option>
+      <option>관광</option>
+      <option>일상</option>
+      <option>힐링</option>
+    </select>
 
-<label>목적 선택</label>
-<select id="purpose">
-  <option>산책</option>
-  <option>가벼운 러닝</option>
-  <option>다이어트</option>
-  <option>관광 러닝</option>
-  <option>장거리 러닝</option>
-  <option>체력 향상</option>
-</select>
+    <label>목적 선택</label>
+    <select id="purpose">
+      <option>산책</option>
+      <option>가벼운 러닝</option>
+      <option>다이어트</option>
+      <option>관광 러닝</option>
+      <option>장거리 러닝</option>
+      <option>체력 향상</option>
+    </select>
 
-<label>안전 조건</label>
-<select id="safety">
-  <option>가로등</option>
-  <option>데크길</option>
-  <option>차량 통행 적음</option>
-  <option>관광객 혼잡도 낮음</option>
-  <option>편의시설</option>
-</select>
+    <label>안전 조건</label>
+    <select id="safety">
+      <option>가로등</option>
+      <option>데크길</option>
+      <option>차량 통행 적음</option>
+      <option>관광객 혼잡도 낮음</option>
+      <option>편의시설</option>
+    </select>
 
-<label>날씨 조건</label>
-<select id="weather">
-  <option>바람 적음</option>
-  <option>습도 낮음</option>
-  <option>직사광선 적음</option>
-  <option>야간 러닝 가능</option>
-</select>
+    <label>날씨 조건</label>
+    <select id="weather">
+      <option>바람 적음</option>
+      <option>습도 낮음</option>
+      <option>직사광선 적음</option>
+      <option>야간 러닝 가능</option>
+    </select>
 
-<button onclick="recommendCourse()">
-  러닝코스 추천받기
-</button>
+    <button onclick="recommendCourse()">
+      러닝코스 추천받기
+    </button>
 
-<div id="result"></div>
+    <div id="result"></div>
 
-  
-<script>
+    <script>
+      const courses = [
+        {
+          name: "탑동 해안 러닝코스",
+          desc: "바다 전망과 도심 풍경을 함께 즐길 수 있는 코스입니다.",
+          difficulty: "초급",
+          distance: "3~5km",
+          mood: "바다",
+          purpose: "가벼운 러닝",
+          safety: "편의시설",
+          weather: "야간 러닝 가능",
+          image: "images/tapdong_coast.png"
+        },
+        {
+          name: "이호테우 해변 러닝코스",
+          desc: "탁 트인 바다와 함께 여유롭게 달릴 수 있는 코스입니다.",
+          difficulty: "초급",
+          distance: "2km 이하",
+          mood: "바다",
+          purpose: "산책",
+          safety: "편의시설",
+          weather: "바람 적음",
+          image: "images/iho_tewoo_beach.png"
+        },
+        {
+          name: "애월 해안도로 러닝코스",
+          desc: "제주의 푸른 바다를 따라 달릴 수 있는 시원한 해안 코스입니다.",
+          difficulty: "초급~중급",
+          distance: "3~5km",
+          mood: "바다",
+          purpose: "관광 러닝",
+          safety: "차량 통행 적음",
+          weather: "바람 적음",
+          image: "images/aewol_coastal_road.png"
+        },
+        {
+          name: "애월 한담 해안 산책로",
+          desc: "바다와 감성적인 분위기를 함께 느낄 수 있는 짧은 산책형 코스입니다.",
+          difficulty: "초급",
+          distance: "2km 이하",
+          mood: "감성",
+          purpose: "산책",
+          safety: "데크길",
+          weather: "바람 적음",
+          image: "images/aewol_handam_trail.png"
+        },
+        {
+          name: "애월 올레길 15-B 일부 구간",
+          desc: "푸른 바다를 따라 길게 달릴 수 있는 장거리 힐링 코스입니다.",
+          difficulty: "중급",
+          distance: "10km 이상",
+          mood: "자연",
+          purpose: "장거리 러닝",
+          safety: "차량 통행 적음",
+          weather: "직사광선 적음",
+          image: "images/aewol_olle_15b.png"
+        },
+        {
+          name: "서귀포 하영올레 일부 구간",
+          desc: "마을과 숲길, 폭포 분위기를 함께 느낄 수 있는 힐링 코스입니다.",
+          difficulty: "초급",
+          distance: "6km 내외",
+          mood: "힐링",
+          purpose: "가벼운 러닝",
+          safety: "편의시설",
+          weather: "습도 낮음",
+          image: "images/seogwipo_hayeong_olle.png"
+        },
+        {
+          name: "제주올레 5·6코스",
+          desc: "자연 경관과 관광 요소를 함께 즐길 수 있는 장거리 러닝코스입니다.",
+          difficulty: "중상급 이상",
+          distance: "10km 이상",
+          mood: "자연",
+          purpose: "장거리 러닝",
+          safety: "차량 통행 적음",
+          weather: "직사광선 적음",
+          image: "images/jeju_olle_5_6.png"
+        }
+      ];
 
-const courses = [
-  {
-    name: "전농로 러닝코스",
-    desc: "접근성이 좋고 일상 러닝에 적합한 코스입니다.",
-    difficulty: "초급~중급",
-    distance: "6km 내외",
-    mood: "관광",
-    purpose: "가벼운 러닝",
-    safety: "차량 통행 적음",
-    weather: "습도 낮음"
-  },
-  {
-    name: "삼양해변 러닝코스",
-    desc: "바다 풍경과 함께 달릴 수 있는 코스입니다.",
-    difficulty: "초급",
-    distance: "3~5km",
-    mood: "바다",
-    purpose: "관광 러닝",
-    safety: "데크길",
-    weather: "야간 러닝 가능"
-  },
-  {
-    name: "이호테우 러닝코스",
-    desc: "노을과 감성 분위기가 좋은 해안 코스입니다.",
-    difficulty: "중급",
-    distance: "6km 내외",
-    mood: "감성",
-    purpose: "다이어트",
-    safety: "가로등",
-    weather: "직사광선 적음"
-  }
-];
+      function recommendCourse() {
+        const level = document.getElementById("level").value;
+        const distance = document.getElementById("distance").value;
+        const mood = document.getElementById("mood").value;
+        const purpose = document.getElementById("purpose").value;
+        const safety = document.getElementById("safety").value;
+        const weather = document.getElementById("weather").value;
 
-function recommendCourse() {
+        const scoredCourses = courses.map(course => {
+          let score = 0;
 
-  const level = document.getElementById("level").value;
-  const distance = document.getElementById("distance").value;
-  const mood = document.getElementById("mood").value;
-  const purpose = document.getElementById("purpose").value;
-  const safety = document.getElementById("safety").value;
-  const weather = document.getElementById("weather").value;
+          if(course.difficulty === level) score++;
+          if(course.distance === distance) score++;
+          if(course.mood === mood) score++;
+          if(course.purpose === purpose) score++;
+          if(course.safety === safety) score++;
+          if(course.weather === weather) score++;
 
-  const scoredCourses = courses.map(course => {
+          return {
+            ...course,
+            score: score
+          };
+        });
 
-    let score = 0;
+        scoredCourses.sort((a, b) => b.score - a.score);
 
-    if(course.difficulty === level) score++;
-    if(course.distance === distance) score++;
-    if(course.mood === mood) score++;
-    if(course.purpose === purpose) score++;
-    if(course.safety === safety) score++;
-    if(course.weather === weather) score++;
+        const topCourses = scoredCourses.slice(0, 3);
 
-    return {
-      ...course,
-      score: score
-    };
-  });
+        let resultHTML = "";
 
-  scoredCourses.sort((a, b) => b.score - a.score);
+        topCourses.forEach(course => {
+          if(course.score === 0) return;
 
-  const topCourses = scoredCourses.slice(0, 3);
+          resultHTML += `
+            <div class="course-card">
+              <img src="${course.image}" class="course-img" alt="${course.name}">
 
-  let resultHTML = "";
+              <h2>${course.name}</h2>
 
-  topCourses.forEach(course => {
+              <p class="score">
+                ${(course.score / 6 * 100).toFixed(0)}% 일치
+              </p>
 
-  if(course.score === 0) return;
+              <p>${course.desc}</p>
 
-  resultHTML += `
-  <div class="course-card">
+              <p class="tags">
+                ${course.mood} · ${course.distance} · ${course.safety}
+              </p>
+            </div>
+          `;
+        });
 
-    <h2>${course.name}</h2>
-
-    <p class="score">
-  ${(course.score / 6 * 100).toFixed(0)}% 일치
-</p>
-
-    <p>${course.desc}</p>
-
-    <p class="tags">
-      ${course.mood} · ${course.distance} · ${course.safety}
-    </p>
-
-  </div>
-`;
-  }); 
-
-  document.getElementById("result").innerHTML = resultHTML;
-}
-
-</script>
+        document.getElementById("result").innerHTML = resultHTML;
+      }
+    </script>
   </div>
 </body>
 </html>
-
-
